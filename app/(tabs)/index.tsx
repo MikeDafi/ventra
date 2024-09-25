@@ -37,6 +37,7 @@ const App = () => {
     };
     const [zlText, setZlText] = useState('ZL'); // Initialize with default text
     const [isBlueBoxesVisible, setIsBlueBoxesVisible] = useState(false); // Initialize with true
+    const [wkdText, setWkdText] = useState('WKD'); // Initialize with default text
 
     return (
         <View style={styles.container}>
@@ -46,7 +47,14 @@ const App = () => {
             {/* Top Section with WKD, ZL, and Date/Time */}
             <View style={styles.header}>
                 <View style={styles.leftContainer}>
-                    <Text style={styles.wkdText}>WKD</Text>
+                    <TextInput
+                        style={styles.wkdText} // Style for input
+                        value={wkdText}
+                        onChangeText={setWkdText} // Update state on text change
+                        maxLength={3} // Limit input length to 3 characters
+                        keyboardType="default" // You can adjust based on your needs
+                        textAlign="center" // Center the text in the input
+                    />
                     <Text style={styles.dayPassText}>Day Pass</Text>
                     <Text style={styles.dateText}>{formatDate(currentTime)}</Text>
                 </View>

@@ -123,6 +123,7 @@ export default function TicketList() {
 
     return (
         <>
+
             <Stack.Screen options={{ title: '🎟 Your Ticket Library' }} />
             <View style={styles.container}>
                 <Text style={styles.header}>🎟 Saved Tickets</Text>

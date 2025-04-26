@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {View, Text, StyleSheet, Dimensions, TextInput, TouchableWithoutFeedback} from 'react-native';
 import { Video } from 'expo-av';
 import { Asset } from 'expo-asset';
-import BlueBoxes  from './blue_box';
+import BlueBoxes  from './blue-box-grid';
 
 const App = () => {
     const [videoUri, setVideoUri] = useState<string | null>(null);
@@ -11,7 +11,7 @@ const App = () => {
 
     useEffect(() => {
         const loadVideo = async () => {
-            const asset = Asset.fromModule(require('../../assets/video/replay_video.mov'));
+            const asset = Asset.fromModule(require('../../../assets/video/replay_video.mov'));
             await asset.downloadAsync();
             setVideoUri(asset.localUri);
         };
@@ -37,20 +37,20 @@ const App = () => {
     };
     const [zlText, setZlText] = useState('ZL'); // Initialize with default text
     const [isBlueBoxesVisible, setIsBlueBoxesVisible] = useState(false); // Initialize with true
-    const [wkdText, setWkdText] = useState('WKD'); // Initialize with default text
+    const [typeOfPassText, settypeOfPassText] = useState('4-1'); // Initialize with default text
 
     return (
         <View style={styles.container}>
             {/* Blue Top Section */}
             <View style={styles.blueTop} />
 
-            {/* Top Section with WKD, ZL, and Date/Time */}
+            {/* Top Section with typeOfPass, ZL, and Date/Time */}
             <View style={styles.header}>
                 <View style={styles.leftContainer}>
                     <TextInput
-                        style={styles.wkdText} // Style for input
-                        value={wkdText}
-                        onChangeText={setWkdText} // Update state on text change
+                        style={styles.typeOfPassText} // Style for input
+                        value={typeOfPassText}
+                        onChangeText={settypeOfPassText} // Update state on text change
                         maxLength={3} // Limit input length to 3 characters
                         keyboardType="default" // You can adjust based on your needs
                         textAlign="center" // Center the text in the input
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     leftContainer: {
         justifyContent: 'space-between'
     },
-    wkdText: {
+    typeOfPassText: {
         fontSize: 60,
         fontWeight: '800',
         color: '#3880ff',

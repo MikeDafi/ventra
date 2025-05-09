@@ -134,7 +134,7 @@ export default function TicketForm() {
     };
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, paddingTop: 100 }}>
             <View style={styles.headerRow}>
                 <Pressable
                     style={styles.button}

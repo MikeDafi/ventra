@@ -8,7 +8,6 @@ const TIME_TO_ENABLE_GESTURE = 3000; // 3 seconds
 export default function PreviewScreen() {
     const { ticketPayload = '{}', mode = 'preview' } = useLocalSearchParams();
     const ticket = JSON.parse(ticketPayload);
-    console.log("Ticket Payload: ", ticket);
     const navigation = useNavigation();
 
     const [gestureEnabled, setGestureEnabled] = useState(mode === 'preview');

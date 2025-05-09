@@ -142,7 +142,7 @@ export default function TicketList() {
 }
 
 const styles = StyleSheet.create({
-                                     container: { flex: 1, padding: 20, backgroundColor: '#f7f8fc' },
+                                     container: { flex: 1, padding: 20, paddingTop: 100, backgroundColor: '#f7f8fc' },
                                      header: { fontSize: 28, fontWeight: 'bold', marginBottom: 20, color: '#333' },
                                      ticketCard: {
                                          backgroundColor: '#fff',

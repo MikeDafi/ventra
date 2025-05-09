@@ -28,7 +28,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack screenOptions={{ headerShown: false }} initialRouteName="index">
         <Stack.Screen name="subapps/transit-pass" options={{ headerShown: false }} />
         <Stack.Screen name="subapps/ticket-maker/index" options={{ headerShown: false }} />
       </Stack>

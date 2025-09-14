@@ -1,4 +1,4 @@
-import * as FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system/legacy";
 
 export const TICKET_FOLDER = FileSystem.documentDirectory + 'tickets/';
 

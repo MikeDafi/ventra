@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {View, Text, StyleSheet, Dimensions, TextInput, TouchableWithoutFeedback} from 'react-native';
-import { Video } from 'expo-av';
+import {View, Text, StyleSheet, Dimensions, TextInput, TouchableWithoutFeedback, AppState} from 'react-native';
+import { VideoView, useVideoPlayer } from 'expo-video';
 import { Asset } from 'expo-asset';
 import BlueBoxes  from './blue-box-grid';
 
 const App = () => {
     const [videoUri, setVideoUri] = useState<string | null>(null);
-    const video = useRef<Video>(null);
     const [currentTime, setCurrentTime] = useState(new Date());
 
     useEffect(() => {
@@ -24,6 +23,27 @@ const App = () => {
 
         return () => clearInterval(interval);
     }, []);
+
+    const player = useVideoPlayer(videoUri, (player) => {
+        player.loop = true;
+        player.muted = true; // Helps with autoplay
+        player.play();
+    });
+
+    useEffect(() => {
+        const handleAppStateChange = (nextAppState: string) => {
+            if (nextAppState === 'active') {
+                // Resume video when app becomes active
+                player.play();
+            }
+        };
+
+        const subscription = AppState.addEventListener('change', handleAppStateChange);
+
+        return () => {
+            subscription?.remove();
+        };
+    }, [player]);
 
     const formatDate = (date: Date) => {
         const month = date.getMonth() + 1; // Months are zero-based
@@ -75,14 +95,12 @@ const App = () => {
             </View>
             <TouchableWithoutFeedback onPress={() => setIsBlueBoxesVisible(!isBlueBoxesVisible)} >
             <View style={styles.videoContainer}>
-                <Video
-                    ref={video}
-                    source={{ uri: videoUri }}
-                    style={styles.video} // Move the video up
-                    useNativeControls
-                    shouldPlay
-                    isLooping
-                    pointerEvents="none" // Disable touch events
+                <VideoView
+                    style={styles.video}
+                    player={player}
+                    fullscreenOptions={{ enabled: false }}
+                    allowsPictureInPicture={false}
+                    nativeControls={false}
                 />
                 <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
                     {isBlueBoxesVisible && <BlueBoxes />}
@@ -157,9 +175,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
     },
     video: {
-        width: '100%',
+        width: '105%',
         marginTop: -140,
-        height: Dimensions.get('window').height, // Keep full height for positioning
+        height: Dimensions.get('window').height, // Make video longer
     },
 });
 

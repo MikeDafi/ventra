@@ -7,7 +7,7 @@ import {
     Pressable,
     Alert,
 } from 'react-native';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import {Stack, useFocusEffect, useRouter} from 'expo-router';
 import {TICKET_FOLDER} from "@/app/subapps/ticket-maker/constants";
 

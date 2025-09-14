@@ -5,7 +5,7 @@ export default function Home() {
     return (
         <View style={{ padding: 20, paddingTop: 100 }}>
             <Text style={{ fontSize: 20, marginBottom: 20 }}>Choose a subapp:</Text>
-            <Link href="/subapps/transit-pass/main" asChild>
+            <Link href="/subapps/transit-pass" asChild>
                 <Pressable>
                     <Text style={{ fontSize: 25, color: 'blue' }}>🚌 Transit Pass</Text>
                 </Pressable>

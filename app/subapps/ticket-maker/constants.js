@@ -1,4 +1,4 @@
-import * as FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system/legacy";
 
 export const TICKET_FOLDER = FileSystem.documentDirectory + 'tickets/';
 
@@ -31,3 +31,16 @@ export const COMMON_FIELDS: Field[] = [
   { label: 'Time of Event*', key: 'timeOfEvent', required: true, example: "7:00 PM", default: DEFAULT_TIME_OF_EVENT },
   { label: 'File Name*', key: 'fileName', required: true, default: DEFAULT_FILE_NAME },
 ];
+
+export default {
+  TICKET_FOLDER,
+  DEFAULT_DATE_STRING,
+  DEFAULT_SEAT_NAMES,
+  DEFAULT_EVENT_NAME,
+  DEFAULT_LOCATION_FIELD_NAME,
+  DEFAULT_SECTION_NAME,
+  DEFAULT_ROW_NAME,
+  DEFAULT_TIME_OF_EVENT,
+  DEFAULT_FILE_NAME,
+  COMMON_FIELDS,
+};

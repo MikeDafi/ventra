@@ -5,7 +5,7 @@ import {
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import {TICKET_FOLDER, COMMON_FIELDS} from "@/app/subapps/ticket-maker/constants";
 
 

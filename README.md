@@ -30,7 +30,7 @@
   2. Use ChatGPT or any assistant to generate an `npm install` command for the optimized dependency suggestions.
   3. Run the command to install the recommended versions. For example:
      ```bash
-     npm install expo-av@~15.0.1 expo-constants@~17.0.3 expo-font@~13.0.1 expo-linking@~7.0.2 expo-router@~4.0.5 expo-splash-screen@~0.29.10 expo-status-bar@~2.0.0 expo-system-ui@~4.0.3 expo-updates@~0.26.7 expo-web-browser@~14.0.1 react@18.3.1 react-dom@18.3.1 react-native@0.76.2 react-native-gesture-handler@~2.20.2 react-native-safe-area-context@4.12.0 react-native-screens@~4.0.0 @types/react@~18.3.12 jest-expo@~52.0.1
+     npm install expo-video@~15.0.1 expo-constants@~17.0.3 expo-font@~13.0.1 expo-linking@~7.0.2 expo-router@~4.0.5 expo-splash-screen@~0.29.10 expo-status-bar@~2.0.0 expo-system-ui@~4.0.3 expo-updates@~0.26.7 expo-web-browser@~14.0.1 react@18.3.1 react-dom@18.3.1 react-native@0.76.2 react-native-gesture-handler@~2.20.2 react-native-safe-area-context@4.12.0 react-native-screens@~4.0.0 @types/react@~18.3.12 jest-expo@~52.0.1
      ```
   4. Clear and reinstall dependencies to avoid conflicts:
      ```bash

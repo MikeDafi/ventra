@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Image, ScrollView, Pressable} from 'react-native';
-import { Video } from 'expo-av';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, Dimensions, Image, ScrollView, Pressable, AppState} from 'react-native';
+import { VideoView, useVideoPlayer } from 'expo-video';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -10,8 +10,29 @@ const TICKET_MARGIN_LEFT = 8;
 const TICKET_WIDTH = screenWidth - 35;
 
 export default function TicketPreview({ data }) {
-    const [videoHeight, setVideoHeight] = useState(200);
+    const [videoHeight, setVideoHeight] = useState(250);
     const [activeIndex, setActiveIndex] = useState(0);
+    
+    const player = useVideoPlayer(require('../../../../assets/video/hold_near_reader.mov'), (player) => {
+        player.loop = true;
+        player.muted = true; // Helps with autoplay on some platforms
+        player.play();
+    });
+
+    useEffect(() => {
+        const handleAppStateChange = (nextAppState: string) => {
+            if (nextAppState === 'active') {
+                // Resume video when app becomes active
+                player.play();
+            }
+        };
+
+        const subscription = AppState.addEventListener('change', handleAppStateChange);
+
+        return () => {
+            subscription?.remove();
+        };
+    }, [player]);
 
     return (
         <View style={styles.container}>
@@ -122,20 +143,12 @@ export default function TicketPreview({ data }) {
                 )}
                 {/* Fixed Video Below */}
                 <View style={styles.videoWrapper}>
-                    <Video
-                        source={require('../../../../assets/video/hold_near_reader.mov')}
-                        onLoad={({ naturalSize, size }) => {
-                            const width = naturalSize?.width || size?.width;
-                            const height = naturalSize?.height || size?.height;
-                            if (width && height) {
-                                const aspectRatio = width / height;
-                                setVideoHeight(screenWidth / aspectRatio);
-                            }
-                        }}
-                        style={{ width: screenWidth - 80, height: videoHeight }}
-                        resizeMode="cover"
-                        isLooping
-                        shouldPlay
+                    <VideoView
+                        style={{ width: screenWidth, height: videoHeight }}
+                        player={player}
+                        fullscreenOptions={{ enabled: false }}
+                        allowsPictureInPicture={false}
+                        nativeControls={false}
                     />
                 </View>
             </View>
@@ -280,7 +293,7 @@ const styles = StyleSheet.create({
                                      videoWrapper: {
                                          width: screenWidth,
                                          alignItems: 'center',
-                                         marginTop: 2,
+                                         marginTop: -33,
                                      },
                                      dotsOverlay: {
                                          position: 'absolute',

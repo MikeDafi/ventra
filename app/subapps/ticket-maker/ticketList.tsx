@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import * as FileSystem from 'expo-file-system/legacy';
 import {Stack, useFocusEffect, useRouter} from 'expo-router';
-import {TICKET_FOLDER} from "@/app/subapps/ticket-maker/constants";
+import {TICKET_FOLDER} from "@/constants/ticket-maker";
 
 export default function TicketList() {
     const [files, setFiles] = useState<{ name: string; modified: number }[]>([]);

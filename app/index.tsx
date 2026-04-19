@@ -15,6 +15,11 @@ export default function Home() {
                     <Text style={{ fontSize: 25, color: 'blue' }}>🎫 Ticket Maker</Text>
                 </Pressable>
             </Link>
+            <Link href="/subapps/groupon" asChild>
+                <Pressable>
+                    <Text style={{ fontSize: 25, color: 'blue' }}>🏷 Groupon</Text>
+                </Pressable>
+            </Link>
         </View>
     );
 }

@@ -6,7 +6,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as FileSystem from 'expo-file-system/legacy';
-import {TICKET_FOLDER, COMMON_FIELDS} from "@/app/subapps/ticket-maker/constants";
+import {TICKET_FOLDER, COMMON_FIELDS} from "@/constants/ticket-maker";
 
 
 const TICKET_SOURCES: Record<string, { specificFields: Field[] }> = {

@@ -81,7 +81,6 @@ const App = () => {
                 <VideoView
                     player={player}
                     style={styles.video} // Move the video up
-                    contentFit="cover"
                     nativeControls
                     pointerEvents="none" // Disable touch events
                 />
@@ -160,9 +159,10 @@ const styles = StyleSheet.create({
     video: {
         width: '100%',
         marginTop: -140,
-        // Extend past the container's height to compensate for the upward shift above,
-        // so the video (with contentFit="cover") fully covers the container with no gap at the bottom.
-        height: Dimensions.get('window').height + 140,
+        // A small (~3%) height boost narrows the gap left by the upward shift above,
+        // without materially zooming/cropping the video (contentFit stays "contain").
+        // The black videoContainer background blends with any remaining sliver.
+        height: Dimensions.get('window').height * 1.03,
     },
 });
 

@@ -41,6 +41,7 @@ const App = () => {
     const [zlText, setZlText] = useState('ZL'); // Initialize with default text
     const [isBlueBoxesVisible, setIsBlueBoxesVisible] = useState(false); // Initialize with true
     const [typeOfPassText, settypeOfPassText] = useState('4-1'); // Initialize with default text
+    const [dayPassText, setDayPassText] = useState('Day Pass'); // Initialize with default text
 
     return (
         <View style={styles.container}>
@@ -58,7 +59,13 @@ const App = () => {
                         keyboardType="default" // You can adjust based on your needs
                         textAlign="center" // Center the text in the input
                     />
-                    <Text style={styles.dayPassText}>Day Pass</Text>
+                    <TextInput
+                        style={styles.dayPassText}
+                        value={dayPassText}
+                        onChangeText={setDayPassText}
+                        maxLength={20}
+                        keyboardType="default"
+                    />
                     <Text style={styles.dateText}>{formatDate(currentTime)}</Text>
                 </View>
 
@@ -81,6 +88,7 @@ const App = () => {
                 <VideoView
                     player={player}
                     style={styles.video} // Move the video up
+                    contentFit="cover"
                     nativeControls
                     pointerEvents="none" // Disable touch events
                 />
@@ -158,11 +166,10 @@ const styles = StyleSheet.create({
     },
     video: {
         width: '100%',
-        marginTop: -140,
-        // A small (~3%) height boost narrows the gap left by the upward shift above,
-        // without materially zooming/cropping the video (contentFit stays "contain").
-        // The black videoContainer background blends with any remaining sliver.
-        height: Dimensions.get('window').height * 1.03,
+        // No artificial upward shift or height inflation — contentFit="cover" fills the
+        // container edge-to-edge at the minimum zoom this video's aspect ratio requires
+        // (~42% more than "contain"), with zero black/colored bars anywhere.
+        height: Dimensions.get('window').height,
     },
 });
 

@@ -81,6 +81,7 @@ const App = () => {
                 <VideoView
                     player={player}
                     style={styles.video} // Move the video up
+                    contentFit="cover"
                     nativeControls
                     pointerEvents="none" // Disable touch events
                 />
@@ -154,12 +155,14 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height, // Height of the visible video area
         overflow: 'hidden', // Hide the overflow
         width: Dimensions.get('window').width,
-        backgroundColor: 'red',
+        backgroundColor: '#000',
     },
     video: {
         width: '100%',
         marginTop: -140,
-        height: Dimensions.get('window').height, // Keep full height for positioning
+        // Extend past the container's height to compensate for the upward shift above,
+        // so the video (with contentFit="cover") fully covers the container with no gap at the bottom.
+        height: Dimensions.get('window').height + 140,
     },
 });
 

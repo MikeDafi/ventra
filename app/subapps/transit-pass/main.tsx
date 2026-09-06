@@ -4,6 +4,19 @@ import { VideoView, useVideoPlayer } from 'expo-video';
 import { Asset } from 'expo-asset';
 import BlueBoxes  from './blue-box-grid';
 
+// The bundled replay_video.mov's native pixel dimensions (portrait), used to compute
+// the "contain" letterbox size below so the video can be shifted up by exactly that
+// amount — hiding it behind the header instead of leaving a visible top bar.
+const VIDEO_NATIVE_WIDTH = 886;
+const VIDEO_NATIVE_HEIGHT = 1348;
+const ZOOM_MULTIPLIER = 1.045; // ~0.44 -> ~0.46 effective scale, a small/precise bump
+
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const EFFECTIVE_SCALE = (SCREEN_WIDTH / VIDEO_NATIVE_WIDTH) * ZOOM_MULTIPLIER;
+const CONTENT_HEIGHT = VIDEO_NATIVE_HEIGHT * EFFECTIVE_SCALE;
+const TOP_LETTERBOX = (SCREEN_HEIGHT - CONTENT_HEIGHT) / 2;
+
 const App = () => {
     const [videoUri, setVideoUri] = useState<string | null>(null);
     const player = useVideoPlayer(videoUri, (player) => {
@@ -88,7 +101,7 @@ const App = () => {
                 <VideoView
                     player={player}
                     style={styles.video} // Move the video up
-                    contentFit="cover"
+                    contentFit="contain"
                     nativeControls
                     pointerEvents="none" // Disable touch events
                 />
@@ -166,10 +179,13 @@ const styles = StyleSheet.create({
     },
     video: {
         width: '100%',
-        // No artificial upward shift or height inflation — contentFit="cover" fills the
-        // container edge-to-edge at the minimum zoom this video's aspect ratio requires
-        // (~42% more than "contain"), with zero black/colored bars anywhere.
-        height: Dimensions.get('window').height,
+        // contentFit="contain" gives a base scale of screenWidth/videoWidth (~0.44);
+        // ZOOM_MULTIPLIER bumps that to ~0.46 (small, precise, per request). Shifting
+        // up by exactly the resulting top letterbox hides it behind the header, so
+        // only a bottom black bar remains rather than bars on both sides.
+        height: SCREEN_HEIGHT,
+        marginTop: -TOP_LETTERBOX,
+        transform: [{ scale: ZOOM_MULTIPLIER }],
     },
 });
 

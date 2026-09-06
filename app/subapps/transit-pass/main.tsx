@@ -1,12 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {View, Text, StyleSheet, Dimensions, TextInput, TouchableWithoutFeedback} from 'react-native';
-import { Video } from 'expo-av';
+import { VideoView, useVideoPlayer } from 'expo-video';
 import { Asset } from 'expo-asset';
 import BlueBoxes  from './blue-box-grid';
 
 const App = () => {
     const [videoUri, setVideoUri] = useState<string | null>(null);
-    const video = useRef<Video>(null);
+    const player = useVideoPlayer(videoUri, (player) => {
+        player.loop = true;
+        player.play();
+    });
     const [currentTime, setCurrentTime] = useState(new Date());
 
     useEffect(() => {
@@ -75,13 +78,10 @@ const App = () => {
             </View>
             <TouchableWithoutFeedback onPress={() => setIsBlueBoxesVisible(!isBlueBoxesVisible)} >
             <View style={styles.videoContainer}>
-                <Video
-                    ref={video}
-                    source={{ uri: videoUri }}
+                <VideoView
+                    player={player}
                     style={styles.video} // Move the video up
-                    useNativeControls
-                    shouldPlay
-                    isLooping
+                    nativeControls
                     pointerEvents="none" // Disable touch events
                 />
                 <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>

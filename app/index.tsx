@@ -20,6 +20,11 @@ export default function Home() {
                     <Text style={{ fontSize: 25, color: 'blue' }}>🏷 Groupon</Text>
                 </Pressable>
             </Link>
+            <Link href="/subapps/imessage" asChild>
+                <Pressable>
+                    <Text style={{ fontSize: 25, color: 'blue' }}>💬 iMessage Maker</Text>
+                </Pressable>
+            </Link>
         </View>
     );
 }
